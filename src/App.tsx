@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { BrandLogo } from "./shared/BrandLogo.jsx";
 import {
   Bell,
   Sparkles,
@@ -21,6 +22,8 @@ import {
   Globe,
   Clock,
   Users,
+  ChevronDown,
+  UserRound,
 } from "lucide-react";
 import {
   PLATFORM,
@@ -50,6 +53,13 @@ import {
   useTableSelection,
 } from "./tableUi";
 import { AddClientWorkspaceModal } from "./AddClientWorkspaceModal";
+import { AskAIModal } from "./AskAIModal";
+import { LoginPage } from "./LoginPage";
+import { Landing } from "./landing";
+import { OrgAdminApp } from "./orgadmin";
+import { QALeadApp } from "./qalead";
+import { getSession, clearSession } from "./shared/auth.js";
+import { SidebarFooter } from "./shared/dashboardUi";
 
 const CARD = "crextio-card";
 const CARD_DARK = "crextio-card-dark";
@@ -115,26 +125,23 @@ function Sidebar({
   onNavigate,
   collapsed,
   onToggleCollapse,
+  onLogout,
 }: {
   activeId: string;
   onNavigate: (id: string) => void;
   collapsed: boolean;
   onToggleCollapse: () => void;
+  onLogout: () => void;
 }) {
   return (
     <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
       <div className={`mb-8 flex items-center px-1 ${collapsed ? "flex-col gap-3" : "justify-between"}`}>
         <div className={`flex items-center ${collapsed ? "" : "gap-2.5"}`}>
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-crextio-yellow text-xs font-bold text-crextio-dark">
-            Q
-          </div>
+          <BrandLogo tone="light" size={36} showWordmark={!collapsed} className="qc-brand--sm min-w-0" />
           {!collapsed && (
-            <div className="flex items-center gap-2">
-              <span className="text-[15px] font-bold tracking-tight text-crextio-dark">QCTool</span>
-              <span className="rounded-md bg-crextio-yellow px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-crextio-dark">
-                Super
-              </span>
-            </div>
+            <span className="rounded-md bg-crextio-yellow px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-crextio-dark">
+              Super
+            </span>
           )}
         </div>
         <button
@@ -205,50 +212,43 @@ function Sidebar({
         ))}
       </nav>
 
-      <div className={`mt-auto mb-5 border-t border-black/5 pt-4 ${collapsed ? "w-full" : ""}`}>
-        {!collapsed && (
-          <div className="mb-3 flex items-center gap-2 px-3">
-            <span className="h-2 w-2 rounded-full bg-[#12B76A]" />
-            <span className="text-xs font-medium text-[#12B76A]">All systems operational</span>
-          </div>
-        )}
-        {collapsed && (
-          <div className="mb-3 flex justify-center">
-            <span className="h-2 w-2 rounded-full bg-[#12B76A]" title="All systems operational" />
-          </div>
-        )}
-        <button
-          type="button"
-          title={collapsed ? "Logout" : undefined}
-          className={`flex w-full items-center gap-2.5 rounded-xl border border-[#F04438]/18 bg-[#FEF3F2] px-3.5 py-2.5 text-sm font-semibold text-[#B42318] transition-colors hover:border-[#F04438]/30 hover:bg-[#FEE4E2] ${
-            collapsed ? "justify-center px-2.5" : ""
-          }`}
-        >
-          <LogOut size={16} strokeWidth={2} className="shrink-0" />
-          {!collapsed && "Logout"}
-        </button>
-        {!collapsed ? (
-          <p className="mt-3 px-3 text-[10px] leading-relaxed text-[#A3A3A3]">
-            <span className="font-medium text-[#8E8E8E]">© {new Date().getFullYear()} QC Tool</span>
-            <br />
-            by Zeki Experts Solution
-          </p>
-        ) : (
-          <p
-            className="mt-3 text-center text-[9px] leading-tight text-[#A3A3A3]"
-            title="QC Tool by Zeki Experts Solution"
-          >
-            © {new Date().getFullYear()}
-          </p>
-        )}
-      </div>
+      <SidebarFooter collapsed={collapsed} onLogout={onLogout} />
     </aside>
   );
 }
 
-function TopBar() {
+function TopBar({
+  onNavigate,
+  onLogout,
+}: {
+  onNavigate: (id: string) => void;
+  onLogout: () => void;
+}) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [askAiOpen, setAskAiOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
+
   return (
-    <header className="flex flex-wrap items-center gap-3 border-b border-black/5 px-4 py-3.5 xl:gap-4 xl:px-8">
+    <>
+    <header className="sticky top-0 z-40 flex flex-wrap items-center gap-3 border-b border-black/5 bg-[rgba(253,252,248,0.92)] px-4 py-3.5 backdrop-blur-md xl:gap-4 xl:px-8">
       {/* Logo */}
       <div className="flex shrink-0 items-center">
         <span className="text-[15px] font-bold tracking-tight text-crextio-dark">
@@ -270,6 +270,7 @@ function TopBar() {
         </button>
         <button
           type="button"
+          onClick={() => setAskAiOpen(true)}
           className="flex shrink-0 items-center gap-2 rounded-full bg-crextio-yellow px-3.5 py-2.5 text-sm font-semibold text-crextio-dark shadow-[0_2px_8px_rgba(255,213,79,0.45)]"
         >
           <Sparkles size={15} className="text-crextio-dark" strokeWidth={1.75} />
@@ -289,17 +290,75 @@ function TopBar() {
             3
           </span>
         </button>
-        <div className="flex items-center gap-2.5 rounded-full border border-black/8 bg-white/70 py-1 pl-1 pr-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-crextio-dark text-[11px] font-bold text-white">
-            {PLATFORM.initials}
-          </div>
-          <div className="hidden min-w-0 sm:block">
-            <p className="truncate text-sm font-semibold leading-tight text-crextio-dark">{PLATFORM.displayName}</p>
-            <p className="truncate text-[11px] leading-tight text-crextio-gray">{PLATFORM.role}</p>
-          </div>
+
+        <div className="relative" ref={menuRef}>
+          <button
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex items-center justify-center gap-2.5 rounded-full border border-black/8 bg-white/70 px-3 py-1.5 transition-colors hover:bg-white"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-crextio-dark text-[11px] font-bold text-white">
+              {PLATFORM.initials}
+            </div>
+            <div className="hidden min-w-0 text-left sm:block">
+              <p className="truncate text-sm font-semibold leading-tight text-crextio-dark">{PLATFORM.displayName}</p>
+              <p className="truncate text-[11px] leading-tight text-crextio-gray">{PLATFORM.role}</p>
+            </div>
+            <ChevronDown
+              size={16}
+              strokeWidth={2}
+              className={`shrink-0 text-crextio-gray transition-transform ${menuOpen ? "rotate-180" : ""}`}
+            />
+          </button>
+
+          {menuOpen && (
+            <div
+              role="menu"
+              className="absolute right-0 z-50 mt-2 w-48 overflow-hidden rounded-2xl border border-black/8 bg-white py-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
+            >
+              <button
+                type="button"
+                role="menuitem"
+                className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-sm font-medium text-crextio-dark transition-colors hover:bg-[#F7F8FA]"
+                onClick={() => {
+                  setMenuOpen(false);
+                  onNavigate("settings");
+                }}
+              >
+                <Settings size={16} strokeWidth={1.75} className="text-crextio-gray" />
+                Settings
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-sm font-medium text-crextio-dark transition-colors hover:bg-[#F7F8FA]"
+                onClick={() => setMenuOpen(false)}
+              >
+                <UserRound size={16} strokeWidth={1.75} className="text-crextio-gray" />
+                Profile
+              </button>
+              <div className="my-1 border-t border-black/5" />
+              <button
+                type="button"
+                role="menuitem"
+                className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-sm font-medium text-[#B42318] transition-colors hover:bg-[#FEF3F2]"
+                onClick={() => {
+                  setMenuOpen(false);
+                  onLogout();
+                }}
+              >
+                <LogOut size={16} strokeWidth={1.75} />
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
+    <AskAIModal open={askAiOpen} onClose={() => setAskAiOpen(false)} />
+    </>
   );
 }
 
@@ -339,7 +398,7 @@ function PageHeader() {
     <div className="flex flex-col gap-[30px] px-4 pt-6 pb-6 xl:px-8">
       <div className="flex flex-col gap-[30px] xl:flex-row xl:items-end xl:justify-between">
         <div className="flex flex-col gap-2">
-          <h1 className="text-[2.75rem] font-bold leading-none tracking-tight text-crextio-dark md:text-[3.25rem]">
+          <h1 className="text-[2.25rem] font-bold leading-none tracking-tight text-crextio-dark md:text-[2.75rem]">
             Good morning, {PLATFORM.adminName}
           </h1>
           <p className="text-sm text-crextio-gray">
@@ -599,23 +658,77 @@ function MinuteCapCard() {
 }
 
 export default function App() {
+  const [view, setView] = useState<"landing" | "login" | "app" | "orgadmin" | "qalead">("landing");
   const [activePanel, setActivePanel] = useState("overview");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+  useEffect(() => {
+    const session = getSession();
+    if (session) {
+      if (session.role === "orgadmin") setView("orgadmin");
+      else if (session.role === "qalead") setView("qalead");
+      else setView("app");
+      return;
+    }
+
+    if (window.location.pathname === "/login") {
+      setView("login");
+    }
+  }, []);
+
+  const handleLogout = () => {
+    clearSession();
+    setView("login");
+    setActivePanel("overview");
+    setSidebarCollapsed(false);
+  };
+
+  const handleLogin = (session?: unknown) => {
+    const role = session && typeof session === "object" && "role" in session
+      ? (session as { role?: string }).role
+      : undefined;
+    if (role === "orgadmin") setView("orgadmin");
+    else if (role === "qalead") setView("qalead");
+    else setView("app");
+  };
+
+  if (view === "landing") {
+    return <Landing onLogin={() => setView("login")} />;
+  }
+
+  if (view === "login") {
+    return (
+      <LoginPage
+        onLogin={handleLogin}
+        onBack={() => setView("landing")}
+      />
+    );
+  }
+
+  if (view === "orgadmin") {
+    return <OrgAdminApp onLogout={handleLogout} />;
+  }
+
+  if (view === "qalead") {
+    return <QALeadApp onLogout={handleLogout} />;
+  }
+
   return (
     <div className="min-h-screen w-full">
-      <div className="dashboard-shell flex w-full overflow-hidden">
+      <div className="dashboard-shell flex h-screen w-full overflow-hidden">
         <Sidebar
           activeId={activePanel}
           onNavigate={setActivePanel}
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
+          onLogout={handleLogout}
         />
 
-        <div className="main-canvas flex min-w-0 flex-1 flex-col">
+        <div className="main-canvas flex min-h-0 min-w-0 flex-1 flex-col">
           <div className="crextio-container flex min-h-0 flex-1 flex-col">
-            <TopBar />
+            <TopBar onNavigate={setActivePanel} onLogout={handleLogout} />
 
+            <div className="crextio-scroll">
             {activePanel === "overview" && (
               <>
                 <PageHeader />
@@ -633,6 +746,7 @@ export default function App() {
             {activePanel === "requests" && <RequestsPanel />}
             {activePanel === "audit" && <AuditPanel />}
             {activePanel === "settings" && <SettingsPanel />}
+            </div>
           </div>
         </div>
       </div>

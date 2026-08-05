@@ -31,7 +31,6 @@ import {
   TableToolbar,
   useTableSelection,
   ActionButton,
-  RoundIconButton,
   OutlinePillButton,
   TableFilters,
 } from "./tableUi";
@@ -134,11 +133,6 @@ export function AlertsPanel() {
           filterValue={filter}
           onFilterChange={setFilter}
           searchPlaceholder="Search alerts..."
-          actions={
-            <RoundIconButton label="Add">
-              <Plus size={16} />
-            </RoundIconButton>
-          }
         />
 
         <div className="overflow-x-auto">

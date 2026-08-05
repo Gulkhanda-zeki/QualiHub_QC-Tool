@@ -1,0 +1,294 @@
+{
+  "format": "iso-anim",
+  "version": 1,
+  "w": 1400,
+  "h": 600,
+  "fps": 30,
+  "totalFrames": 60,
+  "currentView": 0,
+  "gradients": [
+    {
+      "id": "grad0",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#0A0A0A"
+        },
+        {
+          "offset": 0.5,
+          "color": "#1E408A"
+        },
+        {
+          "offset": 1,
+          "color": "#2563EB"
+        }
+      ]
+    },
+    {
+      "id": "grad1",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#0A0A0A"
+        },
+        {
+          "offset": 0.25,
+          "color": "#1E408A"
+        },
+        {
+          "offset": 0.5,
+          "color": "#2563EB"
+        },
+        {
+          "offset": 1,
+          "color": "#EFF4FF"
+        }
+      ]
+    },
+    {
+      "id": "grad2",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#1E408A"
+        },
+        {
+          "offset": 0.5,
+          "color": "#2563EB"
+        },
+        {
+          "offset": 1,
+          "color": "#EFF4FF"
+        }
+      ]
+    },
+    {
+      "id": "grad3",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#6090FA"
+        },
+        {
+          "offset": 1,
+          "color": "#FFFFFF"
+        }
+      ]
+    },
+    {
+      "id": "grad4",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#F7F6F0"
+        },
+        {
+          "offset": 1,
+          "color": "#F7F6F0"
+        }
+      ]
+    },
+    {
+      "id": "grad5",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#F3F2EC"
+        },
+        {
+          "offset": 1,
+          "color": "#F3F2EC"
+        }
+      ]
+    },
+    {
+      "id": "grad6",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#E6E5DF"
+        },
+        {
+          "offset": 1,
+          "color": "#F3F2EC"
+        }
+      ]
+    },
+    {
+      "id": "grad7",
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#1F1C1B"
+        },
+        {
+          "offset": 0.5,
+          "color": "#8A7E73"
+        },
+        {
+          "offset": 1,
+          "color": "#E6E5DF"
+        }
+      ]
+    }
+  ],
+  "boxes": [
+    {
+      "pos": [
+        15.5,
+        -7.5,
+        -9.5
+      ],
+      "size": [
+        25,
+        25,
+        25
+      ],
+      "rotation": [
+        0.5235987755982988,
+        0.2792526803190927,
+        0
+      ],
+      "hollow": true,
+      "opacity": 1,
+      "gradients": {
+        "top": "grad1",
+        "sideA": "grad1",
+        "sideB": "grad0"
+      }
+    },
+    {
+      "pos": [
+        -24,
+        15,
+        7.5
+      ],
+      "size": [
+        25,
+        25,
+        25
+      ],
+      "rotation": [
+        0.5235987755982988,
+        0.2792526803190927,
+        0
+      ],
+      "hollow": true,
+      "opacity": 1,
+      "gradients": {
+        "top": "grad1",
+        "sideA": "grad1",
+        "sideB": "grad0"
+      }
+    }
+  ],
+  "keyframes": {
+    "0": [
+      {
+        "frame": 0,
+        "pos": [
+          18.5,
+          -4,
+          -16.5
+        ],
+        "size": [
+          20,
+          20,
+          20
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "opacity": 1,
+        "hollow": true,
+        "gradients": {
+          "top": "grad1",
+          "sideA": "grad1",
+          "sideB": "grad0"
+        }
+      },
+      {
+        "frame": 59,
+        "pos": [
+          15.5,
+          -7.5,
+          -9.5
+        ],
+        "size": [
+          25,
+          25,
+          25
+        ],
+        "rotation": [
+          0.5235987755982988,
+          0.2792526803190927,
+          0
+        ],
+        "opacity": 1,
+        "hollow": true,
+        "gradients": {
+          "top": "grad1",
+          "sideA": "grad1",
+          "sideB": "grad0"
+        }
+      }
+    ],
+    "1": [
+      {
+        "frame": 0,
+        "pos": [
+          -18,
+          14.5,
+          2.5
+        ],
+        "size": [
+          20,
+          20,
+          20
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "opacity": 1,
+        "hollow": true,
+        "gradients": {
+          "top": "grad1",
+          "sideA": "grad1",
+          "sideB": "grad0"
+        }
+      },
+      {
+        "frame": 59,
+        "pos": [
+          -24,
+          15,
+          7.5
+        ],
+        "size": [
+          25,
+          25,
+          25
+        ],
+        "rotation": [
+          0.5235987755982988,
+          0.2792526803190927,
+          0
+        ],
+        "opacity": 1,
+        "hollow": true,
+        "gradients": {
+          "top": "grad1",
+          "sideA": "grad1",
+          "sideB": "grad0"
+        }
+      }
+    ]
+  },
+  "stops": [],
+  "background": "none",
+  "disableAutoFrame": true
+}

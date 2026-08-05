@@ -1,0 +1,111 @@
+<svg width="1380" height="600" viewBox="0 0 1380 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cta-bg" x1="1639.75" y1="1160" x2="110.495" y2="-326.239" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white"/>
+      <stop offset="0.5" stop-color="#FFD54F"/>
+      <stop offset="0.75" stop-color="#FFC107"/>
+      <stop offset="1" stop-color="#0A0A0A"/>
+    </linearGradient>
+    <linearGradient id="wave-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#60A5FA" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#1E408A" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="node-glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#93C5FD"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <filter id="soft-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1380" height="600" fill="url(#cta-bg)"/>
+  <rect x="0.5" y="0.5" width="1379" height="599" stroke="#1F1C1B" stroke-opacity="0.04"/>
+
+  <!-- ambient glow -->
+  <ellipse cx="980" cy="320" rx="280" ry="180" fill="#3B82F6" opacity="0.12" filter="url(#soft-blur)"/>
+  <ellipse cx="180" cy="480" rx="220" ry="140" fill="#0A0A0A" opacity="0.35" filter="url(#soft-blur)"/>
+
+  <!-- diarization lanes (left) -->
+  <g opacity="0.22">
+    <rect x="48" y="420" width="320" height="36" rx="8" fill="#EFF6FF"/>
+    <rect x="56" y="428" width="120" height="8" rx="4" fill="#2563EB"/>
+    <rect x="184" y="428" width="80" height="8" rx="4" fill="#60A5FA"/>
+    <rect x="48" y="468" width="280" height="36" rx="8" fill="#EFF6FF"/>
+    <rect x="56" y="476" width="90" height="8" rx="4" fill="#60A5FA"/>
+    <rect x="154" y="476" width="140" height="8" rx="4" fill="#2563EB"/>
+    <rect x="48" y="516" width="360" height="36" rx="8" fill="#EFF6FF"/>
+    <rect x="56" y="524" width="200" height="8" rx="4" fill="#2563EB"/>
+    <rect x="264" y="524" width="60" height="8" rx="4" fill="#F87171"/>
+  </g>
+
+  <!-- waveform cluster (bottom-left) -->
+  <g transform="translate(0, 600) scale(1,-1)" opacity="0.35">
+    <rect x="0" y="0" width="420" height="220" fill="url(#wave-fill)"/>
+    <g fill="#EFF6FF" opacity="0.85">
+      <rect x="32" y="48" width="6" height="72" rx="3"/>
+      <rect x="46" y="32" width="6" height="96" rx="3"/>
+      <rect x="60" y="56" width="6" height="64" rx="3"/>
+      <rect x="74" y="24" width="6" height="112" rx="3"/>
+      <rect x="88" y="40" width="6" height="88" rx="3"/>
+      <rect x="102" y="16" width="6" height="128" rx="3"/>
+      <rect x="116" y="52" width="6" height="68" rx="3"/>
+      <rect x="130" y="36" width="6" height="92" rx="3"/>
+      <rect x="144" y="60" width="6" height="56" rx="3"/>
+      <rect x="158" y="28" width="6" height="104" rx="3"/>
+      <rect x="172" y="44" width="6" height="80" rx="3"/>
+      <rect x="186" y="20" width="6" height="120" rx="3"/>
+      <rect x="200" y="48" width="6" height="72" rx="3"/>
+      <rect x="214" y="32" width="6" height="96" rx="3"/>
+      <rect x="228" y="56" width="6" height="64" rx="3"/>
+      <rect x="242" y="40" width="6" height="88" rx="3"/>
+      <rect x="256" y="24" width="6" height="112" rx="3"/>
+      <rect x="270" y="52" width="6" height="68" rx="3"/>
+      <rect x="284" y="36" width="6" height="92" rx="3"/>
+      <rect x="298" y="60" width="6" height="56" rx="3"/>
+      <rect x="312" y="28" width="6" height="104" rx="3"/>
+      <rect x="326" y="44" width="6" height="80" rx="3"/>
+      <rect x="340" y="48" width="6" height="72" rx="3"/>
+      <rect x="354" y="32" width="6" height="96" rx="3"/>
+      <rect x="368" y="56" width="6" height="64" rx="3"/>
+    </g>
+  </g>
+
+  <!-- AI analysis nodes (right) -->
+  <g opacity="0.28">
+    <circle cx="1080" cy="140" r="5" fill="url(#node-glow)"/>
+    <circle cx="1140" cy="200" r="4" fill="#93C5FD"/>
+    <circle cx="1200" cy="120" r="6" fill="url(#node-glow)"/>
+    <circle cx="1260" cy="180" r="4" fill="#60A5FA"/>
+    <circle cx="1180" cy="260" r="5" fill="#2563EB"/>
+    <circle cx="1120" cy="300" r="4" fill="#93C5FD"/>
+    <circle cx="1240" cy="320" r="5" fill="#60A5FA"/>
+    <path d="M1080 140 L1140 200 L1200 120 L1260 180 L1180 260 L1120 300 L1240 320" stroke="#BFDBFE" stroke-width="1.2" stroke-dasharray="4 6"/>
+    <path d="M1140 200 L1180 260 L1240 320" stroke="#93C5FD" stroke-width="1"/>
+    <path d="M1200 120 L1260 180 L1240 320" stroke="#93C5FD" stroke-width="1"/>
+  </g>
+
+  <!-- floating spectrum bars (top-right) -->
+  <g opacity="0.2" transform="translate(900, 80)">
+    <rect x="0" y="80" width="8" height="40" rx="4" fill="#EFF6FF"/>
+    <rect x="16" y="60" width="8" height="60" rx="4" fill="#EFF6FF"/>
+    <rect x="32" y="40" width="8" height="80" rx="4" fill="#EFF6FF"/>
+    <rect x="48" y="70" width="8" height="50" rx="4" fill="#EFF6FF"/>
+    <rect x="64" y="30" width="8" height="90" rx="4" fill="#EFF6FF"/>
+    <rect x="80" y="55" width="8" height="65" rx="4" fill="#EFF6FF"/>
+    <rect x="96" y="20" width="8" height="100" rx="4" fill="#EFF6FF"/>
+    <rect x="112" y="50" width="8" height="70" rx="4" fill="#EFF6FF"/>
+  </g>
+
+  <!-- speech arc motif -->
+  <path d="M820 480 C860 420, 940 400, 1020 430 C1100 460, 1140 520, 1100 560" stroke="#BFDBFE" stroke-width="1.5" stroke-opacity="0.25" fill="none"/>
+  <path d="M860 500 C900 460, 960 450, 1010 470" stroke="#93C5FD" stroke-width="1" stroke-opacity="0.2" fill="none"/>
+
+  <!-- QA score chip (decorative) -->
+  <g opacity="0.18" transform="translate(1040, 380)">
+    <rect width="120" height="56" rx="14" fill="#EFF6FF"/>
+    <rect x="12" y="12" width="48" height="6" rx="3" fill="#2563EB"/>
+    <rect x="12" y="26" width="96" height="18" rx="6" fill="#2563EB" opacity="0.35"/>
+    <rect x="12" y="48" width="72" height="4" rx="2" fill="#60A5FA"/>
+  </g>
+</svg>

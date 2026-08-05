@@ -1,0 +1,49 @@
+.qc-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: inherit;
+  --brand-size: 40px;
+}
+
+.qc-brand__mark {
+  display: block;
+  width: var(--brand-size);
+  height: var(--brand-size);
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.qc-brand__name {
+  display: inline-flex;
+  align-items: center;
+  height: var(--brand-size);
+  font-size: calc(var(--brand-size) * 0.68);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.qc-brand__tool {
+  color: var(--c-primary, #ffd54f);
+}
+
+.qc-brand--light .qc-brand__qc {
+  color: var(--c-negro, #1a1a1a);
+}
+
+.qc-brand--dark .qc-brand__qc {
+  color: var(--c-off-white, #fdfcf8);
+}
+
+.qc-brand--inherit .qc-brand__qc {
+  color: inherit;
+}
+
+.qc-brand--sm .qc-brand__name,
+.qc-brand--lg .qc-brand__name {
+  font-size: calc(var(--brand-size) * 0.68);
+}

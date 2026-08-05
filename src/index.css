@@ -43,6 +43,7 @@ body {
 
 .dashboard-shell {
   width: 100%;
+  height: 100vh;
   min-height: 100vh;
   background: transparent;
 }
@@ -63,6 +64,13 @@ body {
   background: rgba(253, 252, 248, 0.78);
   backdrop-filter: blur(24px);
   overflow: hidden;
+}
+
+.crextio-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .crextio-card {
@@ -204,6 +212,7 @@ body {
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
   padding: 24px 16px;
   min-height: 100%;
+  height: 100%;
   z-index: 10;
   transition: width 0.25s ease, padding 0.25s ease;
 }
@@ -259,4 +268,26 @@ body {
 
 .sidebar-nav-item.active .sidebar-nav-icon {
   color: #ffffff;
+}
+
+.sidebar--qalead {
+  padding-bottom: 10px;
+}
+
+.sidebar--qalead .sidebar-qalead-nav {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 2px;
+  scrollbar-width: thin;
+}
+
+.sidebar--qalead .sidebar-nav-item {
+  padding: 9px 12px;
+  font-size: 13px;
+  gap: 10px;
+}
+
+.sidebar--qalead .sidebar-footer {
+  flex-shrink: 0;
 }
