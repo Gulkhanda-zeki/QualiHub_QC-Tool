@@ -304,10 +304,17 @@ export function RoundIconButton({
   );
 }
 
-export function OutlinePillButton({ children }: { children: ReactNode }) {
+export function OutlinePillButton({
+  children,
+  onClick,
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+}) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className="rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold text-crextio-dark"
     >
       {children}

@@ -105,7 +105,7 @@ export const QA_PROCESSING_QUEUE = [
 
 export const QA_RUN_HISTORY = [
   { run: "retention_save_4472.mp3", id: "A-4472", processed: "05 Aug · 14:30", audio: "09:36", compute: "3.7s", qa: 86 },
-  { run: "retention_save_4471.mp3", id: "A-4471", processed: "04 Aug · 19:12", audio: "04:22", compute: "8s", qa: 41 },
+  { run: "retention_save_4471.mp3", id: "A-4471", processed: "04 Aug · 10:12", audio: "04:22", compute: "8s", qa: 41 },
   { run: "inbound_call_4470.mp3", id: "A-4470", processed: "04 Aug · 10:58", audio: "10:15", compute: "9s", qa: 90 },
   { run: "sales_demo_4469.mp3", id: "A-4469", processed: "05 Aug · 11:53", audio: "07:15", compute: "3.7s", qa: 74 },
   { run: "sales_demo_4468.mp3", id: "A-4468", processed: "04 Aug · 9:38", audio: "05:21", compute: "7.1s", qa: 58 },
@@ -282,7 +282,6 @@ export const QA_REPORTS = [
   { title: "Weekly quality digest", desc: "QA average, flag mix and top movers, every Monday at 9am.", schedule: "Weekly · Mon 09:00", recipient: "ops@northwind.io" },
   { title: "Compliance evidence pack", desc: "Mandatory checkpoint results with transcript evidence per call.", schedule: "Monthly · 1st", recipient: "compliance@northwind.io" },
   { title: "Agent scorecards", desc: "Per-agent scorecard PDF for one-on-ones.", schedule: "Manual", recipient: "team leads" },
-  { title: "Calibration log", desc: "Every dispute, decision and reviewer spread.", schedule: "Manual", recipient: "audit trail" },
 ];
 
 export const QA_SCORECARD = [
@@ -302,10 +301,8 @@ export const QA_CAMPAIGNS = [
 
 export const QA_NOTIFICATION_PREFS = [
   { label: "Red flag raised", desc: "A mandatory checkpoint fails or abusive language is detected.", on: true },
-  { label: "Score disputed", desc: "Agent challenges a QA score.", on: true },
   { label: "Batch finished", desc: "The processing queue finishes.", on: false },
   { label: "Minutes 80% used", desc: "Plan quota warning.", on: true },
-  { label: "Weekly digest email", desc: "Monday 9am summary.", on: true },
 ];
 
 export const QA_BOOK_SESSION = {
@@ -337,4 +334,184 @@ export const QA_PIPELINE_STAGES = [
 export const QA_PIPELINE_STATS = {
   avgPerCall: "6.4s",
   realtimeFactor: "8.08x",
+};
+
+export const QA_FLAGS = [
+  { label: "Missed disclosure", count: 38, color: "#FF5C5C" },
+  { label: "Pressure / pushy tone", count: 26, color: "#ffd54f" },
+  { label: "Unverified promise", count: 19, color: "#8A5A00" },
+  { label: "Abusive language", count: 11, color: "#C4362F" },
+  { label: "Wrong product terms", count: 9, color: "#4CC9A0" },
+];
+
+export const QA_SENTIMENT = { positive: 58, neutral: 27, negative: 15 };
+
+export const QA_VOLUME_DATA = {
+  volume: [41, 52, 47, 63, 58, 71, 66, 78, 72, 84, 79, 91, 86, 97],
+  qaTrend: [79, 80, 78, 81, 80, 83, 81, 84, 83, 85, 84, 86, 85, 82],
+  dayLabels: ["21 Jul", "25 Jul", "29 Jul", "01 Aug", "04 Aug"],
+};
+
+export const QA_TODAY_KPIS = [
+  {
+    label: "Awaiting review",
+    value: "16",
+    pill: "oldest 2 days",
+    pillBg: "#FBE9E7",
+    pillFg: "#C4362F",
+    valueColor: "#C4362F",
+    note: "4 red flags · 3 disputes · 9 low QA",
+    icon: "alert" as const,
+  },
+  {
+    label: "Analysed today",
+    value: "128",
+    pill: "+11%",
+    pillBg: "#E3F8F0",
+    pillFg: "#0E7A57",
+    valueColor: "#1a1a1a",
+    note: "4,182 total · avg 6.4s per call",
+    icon: "check" as const,
+  },
+  {
+    label: "Avg QA score",
+    value: "82",
+    pill: "−2",
+    pillBg: "#FBE9E7",
+    pillFg: "#C4362F",
+    valueColor: "#1a1a1a",
+    note: "3 checkpoints below threshold",
+    icon: "chart" as const,
+  },
+  {
+    label: "Compliance",
+    value: "89%",
+    pill: "target 95%",
+    pillBg: "#FFF4DE",
+    pillFg: "#8A5A00",
+    valueColor: "#ffd54f",
+    note: "disclosure pass-rate 88%",
+    icon: "file" as const,
+  },
+];
+
+export const QA_CHECKPOINT_DEFS = [
+  { label: "Opening script & identification", baseRate: 96, threshold: 95 },
+  { label: "Mandatory disclosure read", baseRate: 88, threshold: 100 },
+  { label: "Customer verification", baseRate: 92, threshold: 95 },
+  { label: "Objection handled without pressure", baseRate: 74, threshold: 80 },
+  { label: "Correct product terms quoted", baseRate: 81, threshold: 85 },
+  { label: "Next step confirmed & closing", baseRate: 98, threshold: 85 },
+];
+
+export function getAgentCheckpointRates(agentQa: number) {
+  return QA_CHECKPOINT_DEFS.map((c) => {
+    const rate = Math.max(40, Math.min(100, Math.round(c.baseRate - (90 - agentQa) * 0.7)));
+    const pass = rate >= c.threshold;
+    const near = rate >= c.threshold - 10;
+    return {
+      label: c.label,
+      rate,
+      threshold: c.threshold,
+      color: pass ? "#027A48" : near ? "#B54708" : "#B42318",
+    };
+  });
+}
+
+export function getAgentCoachingNotes(agentQa: number) {
+  return agentQa < 75
+    ? "Pressure language is showing up in objection handling. Two role-play sessions assigned."
+    : "Consistent performer. Include in the quarterly calibration sample.";
+}
+
+export function getAgentCallHistory(agentName: string) {
+  const fromTable = QA_CALLS.filter((c) => c.agent === agentName).map((c) => ({
+    id: c.id,
+    callId: c.meta.split(" · ")[0] ?? c.meta,
+    file: c.file,
+    when: c.meta.split(" · ").slice(1, 3).join(" · ") || c.meta,
+    qa: c.qa,
+    status: c.status,
+  }));
+
+  const extras: Record<string, typeof fromTable> = {
+    "Hira Khan": [
+      { id: "hc1", callId: "A-4462", file: "retention_save_4462.mp3", when: "03 Aug · 16:44", qa: 93, status: "Passed" },
+      { id: "hc2", callId: "A-4458", file: "inbound_call_4458.mp3", when: "02 Aug · 11:20", qa: 89, status: "Passed" },
+      { id: "hc3", callId: "A-4451", file: "sales_demo_4451.mp3", when: "01 Aug · 9:05", qa: 88, status: "Passed" },
+      { id: "hc4", callId: "A-4444", file: "retention_save_4444.mp3", when: "31 Jul · 14:18", qa: 92, status: "Passed" },
+    ],
+  };
+
+  return [...fromTable, ...(extras[agentName] ?? [])].slice(0, 6);
+}
+
+export const QA_TEAM_AGENTS = [
+  { id: "1", initials: "HK", name: "Hira Khan", team: "Retention", email: "hira@northwind.io", qa: 91, compliance: 97, flags: 0, calls: 128, trend: [86, 88, 87, 90, 89, 92, 91] },
+  { id: "2", initials: "SR", name: "Sana Rauf", team: "Support", email: "sana@northwind.io", qa: 88, compliance: 95, flags: 1, calls: 61, trend: [84, 86, 85, 88, 87, 89, 88] },
+  { id: "3", initials: "BS", name: "Bilal Sheikh", team: "Sales", email: "bilal@northwind.io", qa: 87, compliance: 94, flags: 1, calls: 143, trend: [90, 89, 88, 86, 87, 86, 87] },
+  { id: "4", initials: "ZA", name: "Zoya Ahmed", team: "Retention", email: "zoya@northwind.io", qa: 84, compliance: 91, flags: 2, calls: 96, trend: [80, 82, 81, 84, 83, 85, 84] },
+  { id: "5", initials: "UT", name: "Usman Tariq", team: "Collections", email: "usman@northwind.io", qa: 78, compliance: 88, flags: 3, calls: 112, trend: [82, 81, 80, 79, 78, 79, 78] },
+  { id: "6", initials: "AM", name: "Ayesha Malik", team: "Sales", email: "ayesha@northwind.io", qa: 74, compliance: 84, flags: 5, calls: 87, trend: [78, 77, 76, 75, 74, 75, 74] },
+  { id: "7", initials: "FI", name: "Faisal Iqbal", team: "Collections", email: "faisal@northwind.io", qa: 66, compliance: 79, flags: 9, calls: 74, trend: [72, 71, 69, 68, 67, 66, 66] },
+  { id: "8", initials: "DA", name: "Danish Ali", team: "Support", email: "danish@northwind.io", qa: 58, compliance: 71, flags: 12, calls: 53, trend: [72, 70, 67, 64, 61, 59, 58] },
+];
+
+export const QA_QUEUE_STATS = {
+  openFlags: 4,
+  openDisputes: 3,
+  queueTotal: 12,
+  topItemTitle: "Mandatory disclosure missed",
+};
+
+export type ReviewQueueTab = "flags" | "coaching" | "low";
+
+export type QAReviewTableRow = {
+  id: string;
+  call: string;
+  callId: string;
+  agent: string;
+  campaign: string;
+  qa: number | null;
+  reason: string;
+  waiting: string;
+  primaryAction: string;
+  secondaryAction?: string;
+  summary?: boolean;
+};
+
+export const QA_QUEUE_HINTS: Record<ReviewQueueTab, string> = {
+  flags: "A mandatory checkpoint failed or a risk signal was raised. Review these first.",
+  coaching: "The trend is falling. Book a coaching session.",
+  low: "Scored below 70 and still unreviewed.",
+};
+
+export const QA_REVIEW_QUEUE_BY_TAB: Record<ReviewQueueTab, QAReviewTableRow[]> = {
+  flags: [
+    { id: "f1", call: "retention_save_4471.mp3", callId: "A-4471", agent: "Hira Khan", campaign: "CAMP-COLL-02", qa: 41, reason: "Mandatory disclosure missed", waiting: "2 days", primaryAction: "Review", secondaryAction: "Assign" },
+    { id: "f2", call: "sales_demo_4468.mp3", callId: "A-4468", agent: "Bilal Sheikh", campaign: "CAMP-RET-Q3", qa: 58, reason: "Abusive language detected", waiting: "1 day", primaryAction: "Review", secondaryAction: "Assign" },
+    { id: "f3", call: "support_ticket_4463.mp3", callId: "A-4463", agent: "Faisal Iqbal", campaign: "CAMP-COLL-02", qa: 52, reason: "Payment promise without verification", waiting: "1 day", primaryAction: "Review", secondaryAction: "Assign" },
+    { id: "f4", call: "collections_followup_4459.mp3", callId: "A-4459", agent: "Danish Ali", campaign: "CAMP-SALES-AUG", qa: 47, reason: "Threatening tone on collections call", waiting: "2 days", primaryAction: "Review", secondaryAction: "Assign" },
+  ],
+  coaching: [
+    { id: "c1", call: "—", callId: "—", agent: "Danish Ali", campaign: "Support", qa: 58, reason: "QA 14 points down in 7 days · 12 flags · no session yet", waiting: "—", primaryAction: "Coach" },
+    { id: "c2", call: "—", callId: "—", agent: "Faisal Iqbal", campaign: "Collections", qa: 66, reason: "Compliance 79% (below 85) · 9 flags", waiting: "—", primaryAction: "Coach" },
+  ],
+  low: [
+    { id: "l1", call: "retention_save_4471.mp3", callId: "A-4471", agent: "Hira Khan", campaign: "CAMP-COLL-02", qa: 41, reason: "QA below 70 review threshold", waiting: "2 days", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l2", call: "sales_demo_4468.mp3", callId: "A-4468", agent: "Bilal Sheikh", campaign: "CAMP-RET-Q3", qa: 58, reason: "QA below 70 review threshold", waiting: "1 day", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l3", call: "collections_followup_4467.mp3", callId: "A-4467", agent: "Danish Ali", campaign: "CAMP-SALES-AUG", qa: 53, reason: "QA below 70 review threshold", waiting: "1 day", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l4", call: "support_ticket_4463.mp3", callId: "A-4463", agent: "Danish Ali", campaign: "CAMP-COLL-02", qa: 52, reason: "QA below 70 review threshold", waiting: "2 hrs", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l5", call: "inbound_call_4465.mp3", callId: "A-4465", agent: "Usman Tariq", campaign: "CAMP-SALES-AUG", qa: 61, reason: "QA below 70 review threshold", waiting: "3 hrs", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l6", call: "retention_save_4464.mp3", callId: "A-4464", agent: "Ayesha Malik", campaign: "CAMP-RET-Q3", qa: 64, reason: "QA below 70 review threshold", waiting: "4 hrs", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l7", call: "sales_demo_4462.mp3", callId: "A-4462", agent: "Faisal Iqbal", campaign: "CAMP-COLL-02", qa: 59, reason: "QA below 70 review threshold", waiting: "5 hrs", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l8", call: "support_ticket_4456.mp3", callId: "A-4456", agent: "Danish Ali", campaign: "CAMP-COLL-02", qa: 55, reason: "QA below 70 review threshold", waiting: "6 hrs", primaryAction: "Review", secondaryAction: "Open" },
+    { id: "l9", call: "collections_followup_4450.mp3", callId: "A-4450", agent: "Usman Tariq", campaign: "CAMP-COLL-02", qa: 67, reason: "QA below 70 review threshold", waiting: "8 hrs", primaryAction: "Review", secondaryAction: "Open" },
+  ],
+};
+
+export const QA_REVIEW_QUEUE_TAB_COUNTS: Record<ReviewQueueTab, number> = {
+  flags: QA_REVIEW_QUEUE_BY_TAB.flags.length,
+  coaching: QA_REVIEW_QUEUE_BY_TAB.coaching.length,
+  low: QA_REVIEW_QUEUE_BY_TAB.low.length,
 };

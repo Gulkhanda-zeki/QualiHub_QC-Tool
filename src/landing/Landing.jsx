@@ -546,45 +546,276 @@ function Lifecycle() {
 /* —— Features / Assure-style section —— */
 const FEATURE_TABS = [
   {
-    id: 'analysis',
+    id: 'org-admin',
     label: 'Organization Admin',
-    icon: 'ph-sparkle',
-    desc: 'Capture the complete picture of performance, surfacing trends, strengths and risks that traditional QA methods miss.',
-    image: '/landing/dashboards/org-admin.png',
-    imageAlt: 'QCTool Organization Admin workspace overview',
+    icon: 'ph-buildings',
+    desc: 'Manage seats, campaigns and team access — one workspace for every QA program you run.',
+    mock: 'org-admin',
   },
   {
-    id: 'scoring',
+    id: 'qa-lead',
     label: 'QA Lead',
     icon: 'ph-chart-bar',
-    desc: 'Nine QC dimensions per call — compliance, sentiment, script adherence, and PII — with cited evidence you can defend.',
-    image: '/landing/dashboards/qa-lead-calls.png',
-    imageAlt: 'QCTool QA Lead calls review queue',
+    desc: 'Today view, review queue, agent scorecards and coaching — everything a lead needs in one dashboard.',
+    mock: 'qa-lead',
   },
   {
-    id: 'review',
-    label: 'Trainee',
-    icon: 'ph-users-three',
-    desc: 'Diarized transcript on the left, forensic evidence on the right. Jump to the exact phrase that triggered every verdict.',
-    image: '/landing/dashboards/trainee-call-review.png',
-    imageAlt: 'QCTool Trainee call review and coaching view',
+    id: 'coaching',
+    label: 'Coaching',
+    icon: 'ph-chalkboard-teacher',
+    desc: 'Track who needs a session, what to focus on, and whether follow-up is overdue — all in one coaching queue.',
+    mock: 'coaching',
   },
 ];
 
-function FeatureMockShot({ src, alt }) {
+function OrgAdminDashboardMock() {
   return (
-    <div className="qc-feat-mock qc-feat-mock--shot">
-      <img src={src} alt={alt} draggable="false" />
+    <div className="qc-feat-dash">
+      <div className="qc-feat-dash__shell">
+        <aside className="qc-feat-dash__sidebar" aria-hidden="true">
+          <div className="qc-feat-dash__logo">N</div>
+          <div className="qc-feat-dash__nav-item is-active" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+        </aside>
+        <div className="qc-feat-dash__main">
+          <div className="qc-feat-dash__topbar">
+            <span className="qc-feat-dash__crumb">Overview</span>
+            <span className="qc-feat-dash__pill">Pro · 9/12 seats</span>
+          </div>
+          <div className="qc-feat-dash__body">
+            <div className="qc-feat-dash__kpis">
+              <div className="qc-feat-dash__kpi">
+                <span>Minutes used</span>
+                <strong>3,674</strong>
+                <em>89% of plan</em>
+              </div>
+              <div className="qc-feat-dash__kpi">
+                <span>Active agents</span>
+                <strong>48</strong>
+                <em>+6 this month</em>
+              </div>
+              <div className="qc-feat-dash__kpi">
+                <span>Campaigns</span>
+                <strong>3</strong>
+                <em>All active</em>
+              </div>
+              <div className="qc-feat-dash__kpi">
+                <span>Avg QA</span>
+                <strong>84</strong>
+                <em className="is-up">+3 pts</em>
+              </div>
+            </div>
+            <div className="qc-feat-dash__split">
+              <div className="qc-feat-dash__panel">
+                <p className="qc-feat-dash__panel-title">Usage &amp; billing</p>
+                <div className="qc-feat-dash__bars">
+                  {[72, 58, 89, 64, 91, 78, 85].map((h, i) => (
+                    <span key={i} style={{ height: `${h}%` }} />
+                  ))}
+                </div>
+              </div>
+              <div className="qc-feat-dash__panel">
+                <p className="qc-feat-dash__panel-title">Team roster</p>
+                <ul className="qc-feat-dash__list">
+                  <li><span>Retention team</span><strong>18 agents</strong></li>
+                  <li><span>Sales team</span><strong>14 agents</strong></li>
+                  <li><span>Support team</span><strong>9 agents</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QALeadDashboardMock() {
+  return (
+    <div className="qc-feat-dash qc-feat-dash--qalead">
+      <div className="qc-feat-dash__shell">
+        <aside className="qc-feat-dash__sidebar" aria-hidden="true">
+          <div className="qc-feat-dash__logo">N</div>
+          <div className="qc-feat-dash__nav-item is-active" title="Today" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+        </aside>
+        <div className="qc-feat-dash__main">
+          <div className="qc-feat-dash__topbar">
+            <span className="qc-feat-dash__crumb">Work / Today</span>
+            <span className="qc-feat-dash__live">Pipeline live</span>
+          </div>
+          <div className="qc-feat-dash__body">
+            <div className="qc-feat-dash__action-strip">
+              <span className="qc-feat-dash__dot-live" />
+              Action queue
+              <span className="qc-feat-dash__badge qc-feat-dash__badge--danger">4 RED FLAGS</span>
+              <span className="qc-feat-dash__badge qc-feat-dash__badge--warn">3 DECISIONS</span>
+            </div>
+            <div className="qc-feat-dash__kpis qc-feat-dash__kpis--4">
+              <div className="qc-feat-dash__kpi">
+                <span>Avg QA score</span>
+                <strong>84</strong>
+                <em className="is-up">+3 vs last week</em>
+              </div>
+              <div className="qc-feat-dash__kpi">
+                <span>Calls analyzed</span>
+                <strong>1,247</strong>
+                <em>Last 14 days</em>
+              </div>
+              <div className="qc-feat-dash__kpi">
+                <span>Red flags</span>
+                <strong className="is-danger">7</strong>
+                <em>Needs review</em>
+              </div>
+              <div className="qc-feat-dash__kpi">
+                <span>Compliance</span>
+                <strong>93%</strong>
+                <em className="is-up">Above target</em>
+              </div>
+            </div>
+            <div className="qc-feat-dash__split">
+              <div className="qc-feat-dash__panel">
+                <p className="qc-feat-dash__panel-title">Volume &amp; quality</p>
+                <svg viewBox="0 0 240 80" className="qc-feat-dash__chart" aria-hidden="true">
+                  <path d="M0,60 C30,52 50,40 80,38 S140,28 180,32 S220,24 240,20" fill="none" stroke="#ffd54f" strokeWidth="2.5" />
+                  <path d="M0,50 C30,48 50,44 80,42 S140,38 180,40 S220,36 240,34" fill="none" stroke="#1a1a1a" strokeWidth="1.5" strokeDasharray="4 3" />
+                </svg>
+              </div>
+              <div className="qc-feat-dash__panel">
+                <p className="qc-feat-dash__panel-title">Why calls fail</p>
+                <ul className="qc-feat-dash__fail-bars">
+                  <li><span>Mandatory disclosure</span><i style={{ width: '78%' }} /></li>
+                  <li><span>Verification skipped</span><i style={{ width: '52%' }} /></li>
+                  <li><span>Script deviation</span><i style={{ width: '38%' }} /></li>
+                </ul>
+              </div>
+            </div>
+            <div className="qc-feat-dash__panel qc-feat-dash__panel--table">
+              <p className="qc-feat-dash__panel-title">Team performance</p>
+              <table className="qc-feat-dash__table">
+                <thead>
+                  <tr>
+                    <th>Agent</th>
+                    <th>QA</th>
+                    <th>Flags</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span className="qc-feat-dash__avatar">HK</span> Hira Khan</td>
+                    <td><span className="qc-feat-dash__score is-ok">91</span></td>
+                    <td>0</td>
+                    <td><span className="qc-feat-dash__link">View</span></td>
+                  </tr>
+                  <tr>
+                    <td><span className="qc-feat-dash__avatar">DA</span> Danish Ali</td>
+                    <td><span className="qc-feat-dash__score is-bad">58</span></td>
+                    <td>12</td>
+                    <td><span className="qc-feat-dash__link">Coach</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QACoachingDashboardMock() {
+  const rows = [
+    { initials: 'DA', agent: 'Danish Ali', focus: 'De-escalation & tone', qa: 58, trend: '-14', due: '16 Aug', status: 'Overdue', tone: 'bad' },
+    { initials: 'FI', agent: 'Faisal Iqbal', focus: 'Verification before promise', qa: 66, trend: '-6', due: '08 Aug', status: 'Open', tone: 'warn' },
+    { initials: 'AM', agent: 'Ayesha Malik', focus: 'Objection handling script', qa: 74, trend: '-4', due: '11 Aug', status: 'Open', tone: 'warn' },
+    { initials: 'UT', agent: 'Usman Tariq', focus: 'Disclosure accuracy', qa: 78, trend: '+3', due: '02 Aug', status: 'Done', tone: 'ok' },
+  ];
+
+  return (
+    <div className="qc-feat-dash qc-feat-dash--coaching">
+      <div className="qc-feat-dash__shell">
+        <aside className="qc-feat-dash__sidebar" aria-hidden="true">
+          <div className="qc-feat-dash__logo">N</div>
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item is-active" title="Coaching" />
+          <div className="qc-feat-dash__nav-item" />
+          <div className="qc-feat-dash__nav-item" />
+        </aside>
+        <div className="qc-feat-dash__main">
+          <div className="qc-feat-dash__topbar">
+            <span className="qc-feat-dash__crumb">Quality / Coaching</span>
+            <button type="button" className="qc-feat-dash__btn">+ New session</button>
+          </div>
+          <div className="qc-feat-dash__body">
+            <div className="qc-feat-dash__page-head">
+              <div>
+                <h3 className="qc-feat-dash__page-title">Coaching</h3>
+                <p className="qc-feat-dash__page-sub">
+                  A failing score is not just a report. Book a session here and track the follow-up.
+                </p>
+              </div>
+            </div>
+            <div className="qc-feat-dash__panel qc-feat-dash__panel--table qc-feat-dash__panel--flush">
+              <table className="qc-feat-dash__table qc-feat-dash__table--coaching">
+                <thead>
+                  <tr>
+                    <th>Agent</th>
+                    <th>Focus</th>
+                    <th>QA</th>
+                    <th>7D</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.agent}>
+                      <td>
+                        <span className="qc-feat-dash__avatar">{row.initials}</span>
+                        {row.agent}
+                      </td>
+                      <td className="qc-feat-dash__focus">{row.focus}</td>
+                      <td>
+                        <span className={`qc-feat-dash__score ${row.qa < 70 ? 'is-bad' : row.qa < 80 ? 'is-warn' : 'is-ok'}`}>
+                          {row.qa}
+                        </span>
+                      </td>
+                      <td className={row.trend.startsWith('+') ? 'qc-feat-dash__trend-up' : 'qc-feat-dash__trend-down'}>
+                        {row.trend}
+                      </td>
+                      <td>{row.due}</td>
+                      <td>
+                        <span className={`qc-feat-dash__status qc-feat-dash__status--${row.tone}`}>
+                          {row.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 function FeatureVisual({ tab }) {
-  return <FeatureMockShot src={tab.image} alt={tab.imageAlt} />;
+  if (tab.mock === 'qa-lead') return <QALeadDashboardMock />;
+  if (tab.mock === 'org-admin') return <OrgAdminDashboardMock />;
+  return <QACoachingDashboardMock />;
 }
 
 function OrbitSection() {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(1);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -1166,6 +1397,12 @@ const WORK_AGENTS = [
     desc: 'Rolls up nine dimensions into one scorecard.',
     stat: '81.4 overall QA',
   },
+  {
+    icon: 'ph-chalkboard-teacher',
+    title: 'Coaching',
+    desc: 'Routes low scores to sessions with focus areas and due dates.',
+    stat: '2 sessions due',
+  },
 ];
 
 function WorkGuardrailVisual() {
@@ -1336,6 +1573,10 @@ function WorkExamplesSection() {
                   <i className="ph ph-user" aria-hidden="true" />
                   Agent Dana R.
                 </span>
+                <span className="qc-work__meta-chip">
+                  <i className="ph ph-chalkboard-teacher" aria-hidden="true" />
+                  Coaching flagged
+                </span>
               </div>
             </div>
             <div className="qc-work__hero-grid">
@@ -1350,8 +1591,10 @@ function WorkExamplesSection() {
               <div className="qc-work__tile-visual">
                 <Visual />
               </div>
-              <h4>{title}</h4>
-              <p>{desc}</p>
+              <div className="qc-work__tile-copy">
+                <h4>{title}</h4>
+                <p>{desc}</p>
+              </div>
             </article>
           ))}
         </div>

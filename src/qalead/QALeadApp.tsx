@@ -40,6 +40,7 @@ import {
   QACampaignsPanel,
   QASettingsPanel,
   type QANavigate,
+  type AgentTab,
 } from "./panels";
 import { AskAIModal } from "../AskAIModal";
 
@@ -221,7 +222,7 @@ function QATopBar({
             <Search size={15} className="shrink-0" />
             <span className="truncate">Search calls, agents...</span>
             <span className="ml-auto hidden shrink-0 rounded-md bg-black/5 px-1.5 py-0.5 text-[10px] font-medium sm:inline">
-              ⌘K
+              ?K
             </span>
           </button>
           <button
@@ -335,18 +336,30 @@ function renderPanel(
   id: string,
   onNavigate: QANavigate,
   analyzeTab: string,
+  agentId: string | null,
+  agentTab: AgentTab,
+  onAgentTabChange: (tab: AgentTab) => void,
+  onAgentBack: () => void,
 ): ReactNode {
   switch (id) {
     case "today":
       return <QATodayPanel onNavigate={onNavigate} />;
     case "review-queue":
-      return <QAReviewQueuePanel />;
+      return <QAReviewQueuePanel onNavigate={onNavigate} />;
     case "analyze":
       return <QAAnalyzePanel key={analyzeTab} initialTab={analyzeTab} />;
     case "calls":
       return <QACallsPanel />;
     case "agents":
-      return <QAAgentsPanel />;
+      return (
+        <QAAgentsPanel
+          agentId={agentId ?? undefined}
+          agentTab={agentTab}
+          onAgentTabChange={onAgentTabChange}
+          onNavigate={onNavigate}
+          onBack={onAgentBack}
+        />
+      );
     case "coaching":
       return <QACoachingPanel />;
     case "analytics":
@@ -368,10 +381,25 @@ export function QALeadApp({ onLogout }: { onLogout: () => void }) {
   const [activePanel, setActivePanel] = useState("today");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [analyzeTab, setAnalyzeTab] = useState("New analysis");
+  const [agentId, setAgentId] = useState<string | null>(null);
+  const [agentTab, setAgentTab] = useState<AgentTab>("profile");
+
+  const handleAgentBack = () => {
+    setAgentId(null);
+    setAgentTab("profile");
+  };
 
   const handleNavigate: QANavigate = (id, options) => {
     if (id === "analyze" && options?.analyzeTab) {
       setAnalyzeTab(options.analyzeTab);
+    }
+    if (options?.agentId) {
+      setAgentId(options.agentId);
+    } else {
+      setAgentId(null);
+    }
+    if (options?.agentTab) {
+      setAgentTab(options.agentTab);
     }
     setActivePanel(id);
   };
@@ -390,7 +418,9 @@ export function QALeadApp({ onLogout }: { onLogout: () => void }) {
         <div className="main-canvas flex min-h-0 min-w-0 flex-1 flex-col">
           <div className="crextio-container flex min-h-0 flex-1 flex-col">
             <QATopBar activePanel={activePanel} onNavigate={setActivePanel} onLogout={onLogout} />
-            <div className="crextio-scroll">{renderPanel(activePanel, handleNavigate, analyzeTab)}</div>
+            <div className="crextio-scroll">
+              {renderPanel(activePanel, handleNavigate, analyzeTab, agentId, agentTab, setAgentTab, handleAgentBack)}
+            </div>
           </div>
         </div>
       </div>
