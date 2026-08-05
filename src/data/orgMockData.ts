@@ -2,6 +2,7 @@ export const ORG_PLATFORM = {
   workspace: "Helios Travel Group",
   workspaceCode: "HEL-0114",
   displayName: "Jordan Maes",
+  firstName: "Jordan",
   email: "admin@heliostravel.io",
   role: "Workspace Admin",
   initials: "JM",
@@ -11,6 +12,44 @@ export const ORG_PLATFORM = {
   planUsers: 12,
   planRenewal: "1 Sep 2026",
 };
+
+export const ORG_OVERVIEW_KPIS = [
+  { label: "Users", value: "9", of: "/ 12", sub: "3 seats remaining" },
+  { label: "Calls analyzed", value: "1,842", of: "this month", sub: "+12% vs last month" },
+  { label: "Minutes left", value: "330", of: "of 3,000", sub: "Nearing cap — consider upgrading" },
+  { label: "Avg QA score", value: "81", of: "/ 100", sub: "+3 pts vs last month" },
+];
+
+export const ORG_CRITICAL_ATTENTION = [
+  {
+    id: "1",
+    severity: "high" as const,
+    title: "Mandatory checkpoint failed — call CL-4821",
+    tag: "Red flag",
+  },
+  {
+    id: "2",
+    severity: "medium" as const,
+    title: "Score dispute raised on call CL-4790",
+    tag: "Dispute",
+  },
+  {
+    id: "3",
+    severity: "medium" as const,
+    title: "Invoice INV-0091 unpaid for 4 days",
+    tag: "Billing",
+  },
+  {
+    id: "4",
+    severity: "low" as const,
+    title: "Plan-change request pending review",
+    tag: "Request",
+  },
+];
+
+export const ORG_COACHING_QUEUE = [
+  { initials: "NF", name: "Noor Fatima", role: "Agent", qa: 74, trend: "-6" },
+];
 
 export const ORG_NAV_SECTIONS = [
   {
@@ -27,7 +66,6 @@ export const ORG_NAV_SECTIONS = [
     items: [
       { id: "campaigns", label: "Campaigns & Scorecards", icon: "clipboard" },
       { id: "agents", label: "Agent Performance", icon: "chart" },
-      { id: "calibration", label: "Calibration & Disputes", icon: "scales", badge: "3" },
     ],
   },
   {
@@ -48,7 +86,6 @@ export const ORG_PANEL_LABELS: Record<string, string> = {
   billing: "Account & Billing",
   campaigns: "Campaigns & Scorecards",
   agents: "Agent Performance",
-  calibration: "Calibration & Disputes",
   alerts: "Alerts",
   reports: "Reports",
   activity: "Activity Log",
@@ -92,26 +129,42 @@ export const ORG_TEAM_PERFORMANCE = [
 ];
 
 export const ORG_RECENT_ACTIVITY = [
-  { dot: "#12B76A", text: "Bilal Ahmed added as Agent", meta: "Jordan Maes · 10:32 AM" },
-  { dot: "#F79009", text: "Scorecard \"Debt Collection\" checkpoint updated", meta: "Sana Khalid · Yesterday" },
-  { dot: "#6366F1", text: "Report generated — August compliance audit", meta: "Jordan Maes · Yesterday" },
-  { dot: "#F04438", text: "Call CL-4821 flagged — mandatory checkpoint failed", meta: "System · 2 days ago" },
-  { dot: "#98A2B3", text: "Payment method updated", meta: "Jordan Maes · 3 days ago" },
+  { severity: "low" as const, action: "Noor Fatima added as Agent", actor: "Jordan Maes", when: "10:02 AM" },
+  { severity: "medium" as const, action: "Scorecard \"Debt Collection\" checkpoint updated", actor: "Sana Khalid", when: "Yesterday" },
+  { severity: "low" as const, action: "Report generated — August compliance audit", actor: "Jordan Maes", when: "Yesterday" },
+  { severity: "high" as const, action: "Call CL-4821 flagged — mandatory checkpoint failed", actor: "System", when: "2 days ago" },
+  { severity: "low" as const, action: "Payment method updated", actor: "Jordan Maes", when: "3 days ago" },
 ];
 
-export const ORG_USERS = [
-  { id: "1", initials: "NF", name: "Noor Fatima", email: "noor@heliostravel.io", role: "Agent", added: "12 Jun 2026", roleStyle: "agent" },
-  { id: "2", initials: "BA", name: "Bilal Ahmed", email: "bilal@heliostravel.io", role: "Agent", added: "12 Jun 2026", roleStyle: "agent" },
-  { id: "3", initials: "SK", name: "Sana Khalid", email: "sana@heliostravel.io", role: "QA Lead", added: "3 Mar 2025", roleStyle: "qalead" },
-  { id: "4", initials: "AR", name: "Ali Raza", email: "ali@heliostravel.io", role: "QA Lead", added: "14 Mar 2025", roleStyle: "qalead" },
-  { id: "5", initials: "HS", name: "Hira Shah", email: "hira@heliostravel.io", role: "QA Assistant", added: "28 Apr 2026", roleStyle: "assistant" },
+export const ORG_PAYMENT_METHOD = {
+  brand: "VISA",
+  last4: "4242",
+  expiry: "08/2029",
+};
+
+export const ORG_USERS: Array<{
+  id: string;
+  initials: string;
+  name: string;
+  email: string;
+  role: string;
+  status: "active" | "invited";
+  lastActive: string;
+}> = [
+  { id: "1", initials: "NF", name: "Noor Fatima", email: "noor@heliostravel.io", role: "Agent", status: "active" as const, lastActive: "2h ago" },
+  { id: "2", initials: "SK", name: "Sana Khalid", email: "sana@heliostravel.io", role: "QA Lead", status: "active" as const, lastActive: "39m ago" },
 ];
+
+export const ORG_TEAM_STATS = {
+  used: 2,
+  cap: 12,
+  active: 2,
+  invited: 0,
+};
 
 export const ORG_ROLES = [
-  { id: "admin", dot: "#2563EB", name: "Admin", members: 1, description: "Full access — billing, roles, users and every score." },
-  { id: "qalead", dot: "#12B76A", name: "QA Lead", members: 2, description: "Edits scorecards, sees all scores, resolves disputes." },
-  { id: "agent", dot: "#667085", name: "Agent", members: 2, description: "Analyzes calls in their own console. No admin access." },
-  { id: "assistant", dot: "#B8956A", name: "QA Assistant", members: 1, description: "Views team scores and generates reports, read-only." },
+  { id: "qalead", dot: "#1a1a1a", name: "QA Lead", members: 1, description: "Edits scorecards, sees all scores, resolves disputes." },
+  { id: "agent", dot: "#ffd54f", name: "Agent", members: 1, description: "Analyzes calls in their own console. No admin access." },
 ];
 
 export const ORG_PERMISSIONS = [
@@ -132,21 +185,38 @@ export const ORG_INVOICES = [
   { id: "INV-0088", period: "May 2026", amount: "$50.00", status: "Paid" },
 ];
 
-export const ORG_CAMPAIGNS = ["Debt Collection", "Health Insurance", "Banking & Finance", "Sales & Marketing"];
+export const ORG_CAMPAIGNS = [
+  { id: "debt_collection", name: "Debt Collection" },
+  { id: "health_insurance", name: "Health Insurance" },
+  { id: "banking_finance", name: "Banking & Finance" },
+  { id: "sales_marketing", name: "Sales & Marketing" },
+];
 
 export const ORG_CHECKPOINTS = [
-  { id: "1", title: "Verified caller identity", threshold: "Pass ≥ 76%", mandatory: true },
-  { id: "2", title: "Disclosed mini-Miranda statement", threshold: "Pass ≥ 75%", mandatory: true },
-  { id: "3", title: "Confirmed debt amount and account", threshold: "Pass ≥ 86%", mandatory: false },
-  { id: "4", title: "No threatening language used", threshold: "Pass ≥ 76%", mandatory: false },
+  { id: "1", label: "Verified caller identity", threshold: 76, mandatory: true },
+  { id: "2", label: "Disclosed mini-Miranda statement", threshold: 75, mandatory: true },
+  { id: "3", label: "Confirmed debt amount and account", threshold: 86, mandatory: false },
+  { id: "4", label: "No threatening language used", threshold: 76, mandatory: false },
 ];
 
 export const ORG_AGENT_PERFORMANCE = [
-  { name: "Sana Khalid", role: "QA Lead", calls: 181, avgQa: 91, trend: "+4", trendUp: true, mandatory: "98%" },
-  { name: "Ali Raza", role: "QA Lead", calls: 198, avgQa: 88, trend: "+2", trendUp: true, mandatory: "95%" },
-  { name: "Hira Shah", role: "QA Assistant", calls: 140, avgQa: 85, trend: "+1", trendUp: true, mandatory: "93%" },
-  { name: "Bilal Ahmed", role: "Agent", calls: 166, avgQa: 79, trend: "-3", trendUp: false, mandatory: "82%" },
-  { name: "Noor Fatima", role: "Agent", calls: 214, avgQa: 74, trend: "-6", trendUp: false, mandatory: "71%" },
+  { id: "sk", initials: "SK", name: "Sana Khalid", role: "QA Lead", calls: 181, avgQa: 91, trend: "+4", trendUp: true, mandatoryPass: 98 },
+  { id: "ar", initials: "AR", name: "Ali Raza", role: "QA Lead", calls: 198, avgQa: 88, trend: "+2", trendUp: true, mandatoryPass: 95 },
+  { id: "hs", initials: "HS", name: "Hira Shah", role: "QA Assistant", calls: 140, avgQa: 85, trend: "+1", trendUp: true, mandatoryPass: 93 },
+  { id: "ba", initials: "BA", name: "Bilal Ahmed", role: "Agent", calls: 166, avgQa: 79, trend: "-3", trendUp: false, mandatoryPass: 82 },
+  { id: "nf", initials: "NF", name: "Noor Fatima", role: "Agent", calls: 214, avgQa: 74, trend: "-6", trendUp: false, mandatoryPass: 71 },
+];
+
+export const ORG_AGENT_DRAWER_CHECKPOINTS = [
+  { label: "Opening & identification", pct: 88 },
+  { label: "Compliance disclosure", pct: 74 },
+  { label: "Resolution offered", pct: 91 },
+  { label: "Mandatory checkpoints", pct: 71 },
+];
+
+export const ORG_AGENT_COACHING_NOTES = [
+  { text: "Great de-escalation on a frustrated caller — keep leading with empathy before the compliance script.", meta: "Sana Khalid · 3 days ago" },
+  { text: "Missed the identity-verification step twice this week — walk through the checklist together.", meta: "Sana Khalid · 1 week ago" },
 ];
 
 export const ORG_DISPUTES = [
@@ -155,11 +225,13 @@ export const ORG_DISPUTES = [
 ];
 
 export const ORG_ALERTS = [
-  { id: "1", dot: "#F04438", title: "Mandatory checkpoint failed — CL-4821", sub: "Agent Noor F. · \"Verified caller identity\" not confirmed", tag: "Mandatory fail", tagStyle: "fail", time: "2h", action: "Review call" },
-  { id: "2", dot: "#F04438", title: "Compliance risk flagged — CL-4803", sub: "Possible unauthorized disclosure of account balance", tag: "Compliance", tagStyle: "compliance", time: "5h", action: "Review call" },
-  { id: "3", dot: "#F79009", title: "Unusual scoring pattern — Noor Fatima", sub: "Avg QA dropped 12 points over the last 20 calls", tag: "Pattern", tagStyle: "pattern", time: "1d", action: "View agent" },
-  { id: "4", dot: "#F79009", title: "Mandatory checkpoint failed — CL-4790", sub: "Agent Bilal A. · \"Disclosed debt amount\" missing", tag: "Mandatory fail", tagStyle: "fail", time: "1d", action: "Review call" },
+  { id: "1", severity: "high" as const, category: "mandatory", title: "Mandatory checkpoint failed — CL-4821", detail: "Agent Noor F. · \"Verified caller identity\" not confirmed", tag: "Mandatory fail", time: "2h", action: "Review call" },
+  { id: "2", severity: "high" as const, category: "compliance", title: "Compliance risk flagged — CL-4803", detail: "Possible unauthorized disclosure of account balance", tag: "Compliance", time: "5h", action: "Review call" },
+  { id: "3", severity: "medium" as const, category: "pattern", title: "Unusual scoring pattern — Noor Fatima", detail: "Avg QA dropped 12 points over the last 20 calls", tag: "Pattern", time: "1d", action: "View agent" },
+  { id: "4", severity: "medium" as const, category: "mandatory", title: "Mandatory checkpoint failed — CL-4790", detail: "Agent Bilal A. · \"Disclosed debt amount\" missing", tag: "Mandatory fail", time: "1d", action: "Review call" },
 ];
+
+export const ORG_ALERT_FILTERS = ["All", "Compliance", "Mandatory fail", "Unusual pattern"];
 
 export const ORG_REPORTS_STATS = [
   { label: "Reports generated", value: "14" },
@@ -168,19 +240,26 @@ export const ORG_REPORTS_STATS = [
   { label: "Calls covered", value: "1,842" },
 ];
 
+export const ORG_REPORT_TYPES = [
+  { id: "compliance", title: "Compliance audit", subtitle: "Mandatory checkpoints" },
+  { id: "performance", title: "Team performance", subtitle: "QA scores by agent" },
+  { id: "campaign", title: "Campaign summary", subtitle: "Volume and coverage" },
+  { id: "dispute", title: "Disputes & red flags", subtitle: "Resolved and open cases" },
+];
+
 export const ORG_RECENT_REPORTS = [
-  { name: "August compliance audit", id: "RPT-118 · 3 Aug 2026", calls: "1842", qa: "81", format: "PDF" },
-  { name: "Debt Collection · Q3 summary", id: "RPT-117 · 28 Jul 2026", calls: "640", qa: "79", format: "CSV" },
-  { name: "July compliance audit", id: "RPT-104 · 2 Jul 2026", calls: "1690", qa: "78", format: "PDF" },
+  { name: "August compliance audit", meta: "RPT-118 · 3 Aug 2026", calls: "1842", qa: "81", format: "PDF" as const },
+  { name: "Debt Collection · Q3 summary", meta: "RPT-117 · 28 Jul 2026", calls: "640", qa: "79", format: "CSV" as const },
+  { name: "July compliance audit", meta: "RPT-104 · 2 Jul 2026", calls: "1690", qa: "78", format: "PDF" as const },
 ];
 
 export const ORG_ACTIVITY_LOG = [
-  { action: "Bilal Ahmed added as Agent", actor: "Jordan Maes", severity: "Low", time: "10:32 AM" },
-  { action: "Scorecard \"Debt Collection\" checkpoint updated", actor: "Sana Khalid", severity: "Medium", time: "Yesterday" },
-  { action: "Report generated — August compliance audit", actor: "Jordan Maes", severity: "Low", time: "Yesterday" },
-  { action: "Call CL-4821 flagged — mandatory checkpoint failed", actor: "System", severity: "High", time: "2 days ago" },
-  { action: "Dispute resolved on call CL-4655 — overturned", actor: "Sana Khalid", severity: "Medium", time: "2 days ago" },
-  { action: "Payment method updated", actor: "Jordan Maes", severity: "Low", time: "3 days ago" },
+  { action: "Noor Fatima added as Agent", actor: "Jordan Maes", severity: "low" as const, when: "10:02 AM" },
+  { action: "Scorecard \"Debt Collection\" checkpoint updated", actor: "Sana Khalid", severity: "medium" as const, when: "Yesterday" },
+  { action: "Report generated — August compliance audit", actor: "Jordan Maes", severity: "low" as const, when: "Yesterday" },
+  { action: "Call CL-4821 flagged — mandatory checkpoint failed", actor: "System", severity: "high" as const, when: "2 days ago" },
+  { action: "Dispute resolved on call CL-4655 — overturned", actor: "Sana Khalid", severity: "medium" as const, when: "2 days ago" },
+  { action: "Payment method updated", actor: "Jordan Maes", severity: "low" as const, when: "3 days ago" },
 ];
 
 export const ORG_NOTIFICATION_PREFS = [

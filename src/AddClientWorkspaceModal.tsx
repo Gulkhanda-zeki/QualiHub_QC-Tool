@@ -136,7 +136,7 @@ export function AddClientWorkspaceModal({ open, onClose }: AddClientWorkspaceMod
             </button>
             <button
               type="submit"
-              className="rounded-2xl bg-crextio-dark px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              className="rounded-2xl bg-crextio-dark px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-crextio-charcoal"
             >
               Add Organization
             </button>

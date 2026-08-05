@@ -74,7 +74,7 @@ function Nav() {
       {open && (
         <div style={{
           position: 'fixed', top: 60, left: 16, right: 16, zIndex: 99,
-          background: '#0a0a0a', borderRadius: 12, padding: 16,
+          background: '#1a1a1a', borderRadius: 12, padding: 16,
           display: 'flex', flexDirection: 'column', gap: 4,
         }}>
           {NAV_LINKS.map(([l, h]) => (

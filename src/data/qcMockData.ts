@@ -86,6 +86,16 @@ export const MINUTE_CAP_COMPANIES = [
   { name: "Cardinal Utilities", used: 648, cap: 1000 },
 ];
 
+export const SYSTEM_STATUS = [
+  { label: "AI analysis engine", state: "Operational" as const },
+  { label: "Diarisation (Sortformer)", state: "Degraded" as const },
+  { label: "Storage", state: "Operational" as const },
+  { label: "API services", state: "Operational" as const },
+];
+
+export const SYSTEM_STATUS_FOOTER =
+  "Queue depth 52 jobs · 15 min average wait. Sortformer degraded on 60 min+ audio.";
+
 export const CALLS_OVERVIEW = {
   labels: ["Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 1", "Aug 2", "Aug 3"],
   values: [3820, 4102, 3950, 4523, 4680, 4210, 4390],
@@ -587,9 +597,9 @@ export const BILLING_PANEL = {
     { id: "INV-1998", company: "Orchard Collections", plan: "Standard · Jul 2026", amount: "$50.00", status: "Refunded", note: "Cancelled mid-period, refunded in full", action: "View" },
   ],
   plans: [
-    { name: "Standard", price: "$50", detail: "1,000 min · 6 seats · 1 campaign" },
-    { name: "Pro", price: "$100", detail: "3,000 min · 12 seats · all campaigns" },
-    { name: "Max", price: "Custom", detail: "unlimited · SSO · on-prem" },
+    { name: "Standard", price: "$50", detail: "1,000 min · 6 seats · 1 campaign", live: true },
+    { name: "Pro", price: "$100", detail: "3,000 min · 12 seats · all campaigns", live: true },
+    { name: "Max", price: "Custom", detail: "unlimited · SSO · on-prem", live: false },
   ],
   overageNote:
     "What happens when a company finishes its monthly minutes. Block stops new uploads until the next period, Warn keeps processing and flags the account here, Bill per minute adds $0.04 per extra minute to the next invoice.",

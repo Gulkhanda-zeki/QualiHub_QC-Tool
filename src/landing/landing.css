@@ -1,42 +1,5 @@
 /* QCTool Landing — Prolibu visual system (full-page reference) */
 
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Regular.woff2) format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Medium.woff2) format("woff2");
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-SemiBold.woff2) format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Bold.woff2) format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist Mono";
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/GeistMono-Regular.woff2) format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist Mono";
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/GeistMono-Medium.woff2) format("woff2");
-  font-weight: 500;
-  font-display: swap;
-}
-
 .qc-lp {
   --c-blanco: #ffffff;
   --c-off-white: #fdfcf8;
@@ -59,17 +22,10 @@
   --step-6: clamp(2.25rem, 1.634rem + 2.63vw, 4rem);
   --section-x: 24px;
   --max-w: 1200px;
-  font-family: Inter, Geist, system-ui, sans-serif;
+  font-family: "Schibsted Grotesk", system-ui, sans-serif;
   color: var(--c-negro);
   -webkit-font-smoothing: antialiased;
-  background: radial-gradient(
-    ellipse 120% 100% at 0% 0%,
-    #ececec 0%,
-    #f2efe9 30%,
-    #faf6ee 55%,
-    #fff9e5 80%,
-    #ffe8a8 100%
-  );
+  background: var(--c-off-white);
 }
 
 .qc-lp *, .qc-lp *::before, .qc-lp *::after { box-sizing: border-box; }
@@ -85,7 +41,7 @@
 
 /* —— Shared —— */
 .qc-lp .s-eyebrow {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 13px;
   font-weight: 400;
   text-transform: uppercase;
@@ -130,7 +86,7 @@
   line-height: 1;
   border-radius: 999px;
   letter-spacing: -0.01em;
-  font-family: Geist, sans-serif;
+  font-family: "Schibsted Grotesk", system-ui, sans-serif;
   box-sizing: border-box;
 }
 
@@ -143,6 +99,7 @@
   background: var(--c-negro);
   color: var(--c-off-white);
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .qc-lp .btn-outline {
@@ -191,9 +148,9 @@
   z-index: 3;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.84) 0%,
-    rgba(0, 0, 0, 0.74) 42%,
-    rgba(0, 0, 0, 0.64) 100%
+    rgba(18, 37, 64, 0.88) 0%,
+    rgba(15, 30, 52, 0.78) 42%,
+    rgba(10, 20, 36, 0.68) 100%
   );
   pointer-events: none;
 }
@@ -247,7 +204,7 @@
   inset: 0;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(59, 130, 246, 0.45), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(var(--c-primary-rgb), 0.28), transparent 60%),
     linear-gradient(165deg, #0c1222 0%, #1a2744 35%, #0f172a 70%, #050810 100%);
 }
 .qc-crystal-bg::before {
@@ -255,8 +212,8 @@
   position: absolute;
   inset: -20%;
   background:
-    conic-gradient(from 210deg at 55% 45%, transparent 0deg, rgba(96, 165, 250, 0.15) 40deg, transparent 80deg,
-      rgba(167, 139, 250, 0.12) 120deg, transparent 160deg, rgba(56, 189, 248, 0.18) 200deg, transparent 280deg);
+    conic-gradient(from 210deg at 55% 45%, transparent 0deg, rgba(var(--c-primary-rgb), 0.14) 40deg, transparent 80deg,
+      rgba(167, 139, 250, 0.12) 120deg, transparent 160deg, rgba(var(--c-primary-rgb), 0.16) 200deg, transparent 280deg);
   animation: qc-crystal-spin 40s linear infinite;
 }
 @keyframes qc-crystal-spin {
@@ -450,7 +407,7 @@
   aspect-ratio: 1800 / 950;
   border-radius: 28px;
   overflow: hidden;
-  background: #000;
+  background: var(--c-dark);
   border: 1px solid rgba(var(--c-primary-rgb), 0.18);
   box-shadow:
     0 36px 90px rgba(0, 0, 0, 0.45),
@@ -711,7 +668,7 @@
   color: var(--c-negro);
   display: grid;
   place-items: center;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 9px;
   font-weight: 600;
 }
@@ -749,7 +706,7 @@
 }
 .hero-dash__greet {
   margin: 0 0 2px;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -767,7 +724,7 @@
   border-radius: 100px;
   background: rgba(var(--c-primary-rgb), 0.2);
   border: 1px solid rgba(96, 144, 250, 0.3);
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 9px;
   color: var(--c-primary-soft);
   flex-shrink: 0;
@@ -813,7 +770,7 @@
 }
 .hero-dash__chart-val {
   color: #4ade80;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-weight: 500;
 }
 .hero-dash__bars {
@@ -866,7 +823,7 @@
   border-radius: 100px;
   background: rgba(var(--c-primary-rgb), 0.16);
   border: 1px solid rgba(96, 144, 250, 0.22);
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px;
   color: var(--c-primary-soft);
   text-transform: uppercase;
@@ -998,7 +955,7 @@
 }
 .qc-hero-card__bar-meta {
   margin-left: 8px;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.02em;
@@ -1039,7 +996,7 @@
 .qc-hero-card__avatar--ag { background: #2563eb; color: #fff; }
 .qc-hero-card__avatar--cx { background: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.88); }
 .qc-hero-card__time {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px;
   color: rgba(255, 255, 255, 0.38);
   display: block;
@@ -1057,7 +1014,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 .qc-hero-card__score-label {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
@@ -1102,7 +1059,7 @@
   top: 0; left: 0; right: 0;
   z-index: 100;
   color: var(--c-off-white);
-  background: rgba(0,0,0,0.5);
+  background: rgba(18, 37, 64, 0.55);
   backdrop-filter: blur(16px);
   transition: all 0.35s ease;
 }
@@ -1135,13 +1092,13 @@
 .qc-nav__links a:hover { opacity: 1; }
 .qc-nav__cta { display: flex; gap: 12px; align-items: center; margin-left: auto; flex-shrink: 0; }
 .qc-nav .btn-fill { background: var(--c-off-white); color: var(--c-negro); border-color: var(--c-off-white); }
-.qc-nav .btn-outline { display: inline-flex; color: var(--c-off-white); border-color: rgba(247,246,240,0.35); }
+.qc-nav .btn-outline { display: inline-flex; color: var(--c-off-white); border-color: rgba(247, 246, 240, 0.35); }
 @media (max-width: 767px) {
   .qc-nav__cta { gap: 10px; }
   .qc-nav__logo .qc-brand { --brand-size: 34px; }
 }
-.qc-nav.is-scrolled .btn-fill { background: var(--c-negro); color: var(--c-off-white); }
-.qc-nav.is-scrolled .btn-outline { display: inline-flex; color: var(--c-negro); border-color: rgba(31,28,27,0.2); }
+.qc-nav.is-scrolled .btn-fill { background: var(--c-negro); color: var(--c-off-white); border-color: var(--c-negro); }
+.qc-nav.is-scrolled .btn-outline { display: inline-flex; color: var(--c-negro); border-color: rgba(31, 28, 27, 0.2); }
 .qc-hamburger { display: flex; flex-direction: column; gap: 5px; background: none; border: none; padding: 0; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
 .qc-hamburger span { display: block; width: 22px; height: 2.5px; background: currentColor; border-radius: 1px; }
 
@@ -1246,7 +1203,7 @@
 .qc-orbit__stat {
   display: inline-flex;
   align-items: baseline;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.34em;
   font-weight: 550;
   letter-spacing: -0.02em;
@@ -1496,7 +1453,7 @@
   border: none;
   background: none;
   color: #fff;
-  font-family: Geist, sans-serif;
+  font-family: "Schibsted Grotesk", system-ui, sans-serif;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -1964,7 +1921,7 @@
 }
 .qc-feat-mock__meta em {
   font-style: normal;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -2049,7 +2006,7 @@
   opacity: 0.75;
 }
 .qc-feat-mock__player > span {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
   color: #888;
 }
@@ -2260,7 +2217,7 @@
   padding: 80px var(--section-x);
   color: #fff;
   overflow: hidden;
-  background-color: #000;
+  background-color: var(--c-dark);
   background-image:
     radial-gradient(ellipse 50% 35% at 50% 8%, rgba(var(--c-primary-rgb), 0.2), transparent 60%),
     radial-gradient(ellipse 40% 40% at 90% 80%, rgba(var(--c-primary-rgb), 0.08), transparent 65%);
@@ -2410,7 +2367,7 @@
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -2744,7 +2701,7 @@
   border: 1px solid rgba(255, 255, 255, 0.85);
   background: rgba(255, 255, 255, 0.72);
   padding: 6px 14px;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -3669,7 +3626,7 @@
   height: 320px;
   padding: 0;
   overflow: hidden;
-  background: #000;
+  background: var(--c-dark);
   border-color: rgba(96, 144, 250, 0.22);
 }
 .qc-tslide-card__bg {
@@ -3783,7 +3740,7 @@
   border: none;
   background: transparent;
   color: var(--c-gris-600);
-  font-family: Geist, sans-serif;
+  font-family: "Schibsted Grotesk", system-ui, sans-serif;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -3841,8 +3798,8 @@
   z-index: 3;
   transform: scale(1.04);
   opacity: 1;
-  background: #000;
-  border-color: #000;
+  background: var(--c-negro);
+  border-color: var(--c-negro);
   color: #fff;
   box-shadow:
     0 22px 56px rgba(0, 0, 0, 0.28),
@@ -4007,7 +3964,7 @@
   max-width: min(1400px, 100%);
   width: 100%;
   margin: 0 auto;
-  background: #000;
+  background: var(--c-dark);
   border: 1.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   overflow: hidden;
@@ -4295,7 +4252,7 @@
   z-index: 10;
   overflow: hidden;
   color: #fff;
-  background-color: #000;
+  background-color: var(--c-dark);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding-left: var(--section-x);
   padding-right: var(--section-x);

@@ -462,7 +462,7 @@ export async function initFinalCtaEffects(targets) {
       if (duration === 0) {
         countEl.textContent = String(target);
         highlightEl.style.setProperty('--bar', '1');
-        highlightEl.style.color = 'var(--c-negro, #1a1a1a)';
+        highlightEl.style.color = 'var(--c-accent, #1b3a63)';
         countEl.style.color = '#fff';
         return;
       }
@@ -472,7 +472,7 @@ export async function initFinalCtaEffects(targets) {
         const h = easeOut(p);
         countEl.textContent = String(Math.round(h * target));
         highlightEl.style.setProperty('--bar', String(h));
-        highlightEl.style.color = h > 0.12 ? 'var(--c-negro, #1a1a1a)' : '#fff';
+        highlightEl.style.color = h > 0.12 ? 'var(--c-accent, #1b3a63)' : '#fff';
         countEl.style.color = '#fff';
         if (p < 1) requestAnimationFrame(frame);
       }

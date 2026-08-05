@@ -1,32 +1,7 @@
-/* QCTool Login — Kezak-style split + landing page color scheme */
-
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Regular.woff2) format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Medium.woff2) format("woff2");
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-SemiBold.woff2) format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: Geist;
-  src: url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Bold.woff2) format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
+/* QCTool Login — yellow & black brand theme */
 
 .qc-login {
-  /* Landing / Super Admin brand tokens */
+  /* Landing brand tokens */
   --c-blanco: #ffffff;
   --c-off-white: #fdfcf8;
   --c-negro: #1a1a1a;
@@ -48,7 +23,7 @@
   width: 100%;
   display: block;
   padding: 0;
-  font-family: Geist, system-ui, sans-serif;
+  font-family: "Schibsted Grotesk", system-ui, sans-serif;
   color: var(--login-text);
   background: var(--c-blanco);
   -webkit-font-smoothing: antialiased;
@@ -75,9 +50,7 @@
   flex-direction: column;
   min-height: 100vh;
   padding: 36px 44px 28px;
-  background:
-    radial-gradient(ellipse 90% 60% at 0% 0%, rgba(var(--c-primary-rgb), 0.14), transparent 55%),
-    var(--c-off-white);
+  background: var(--c-shell-gradient);
 }
 
 .qc-login__header { flex-shrink: 0; margin-bottom: 8px; }
@@ -164,7 +137,7 @@
   margin-bottom: 24px;
   border-radius: 999px;
   background: rgba(26, 26, 26, 0.06);
-  border: 1px solid rgba(26, 26, 26, 0.08);
+  border: 1px solid var(--login-border);
 }
 
 .qc-login__mode-btn {
@@ -183,7 +156,7 @@
 .qc-login__mode-btn.is-active {
   background: var(--c-negro);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(26, 26, 26, 0.28);
 }
 
 .qc-login__form { display: flex; flex-direction: column; gap: 16px; }
@@ -217,7 +190,7 @@
   height: 48px;
   padding: 0 16px 0 44px;
   border-radius: 12px;
-  border: 1px solid rgba(26, 26, 26, 0.12);
+  border: 1px solid var(--login-border);
   background: #fff;
   color: var(--login-text);
   font-family: inherit;
@@ -229,8 +202,8 @@
 .qc-login__input-wrap input::placeholder { color: #a0a0a0; }
 
 .qc-login__input-wrap input:focus {
-  border-color: var(--c-primary);
-  box-shadow: 0 0 0 3px rgba(var(--c-primary-rgb), 0.28);
+  border-color: var(--c-negro);
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.16);
   background: #fff;
 }
 
@@ -323,6 +296,11 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s ease, transform 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qc-login__submit:hover:not(:disabled):not(.is-loading) {
+  background: #333333;
 }
 
 .qc-login__submit::after {
@@ -330,7 +308,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 16px;
-  background: radial-gradient(circle, rgba(var(--c-primary-rgb), 0.55) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 213, 79, 0.35) 0%, transparent 70%);
   opacity: 0;
   transform: scale(0.85);
   transition:
@@ -424,7 +402,7 @@
   display: grid;
   place-items: center;
   border-radius: 12px;
-  border: 1px solid rgba(26, 26, 26, 0.12);
+  border: 1px solid var(--login-border);
   background: #fff;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
@@ -432,7 +410,7 @@
 
 .qc-login__social-icon:hover:not(:disabled) {
   background: var(--c-primary-light);
-  border-color: rgba(var(--c-primary-rgb), 0.55);
+  border-color: rgba(26, 26, 26, 0.22);
 }
 
 .qc-login__legal {
@@ -494,7 +472,7 @@
     conic-gradient(
       from 200deg at 60% 40%,
       transparent 0deg,
-      rgba(255, 213, 79, 0.1) 50deg,
+      rgba(var(--c-primary-rgb), 0.12) 50deg,
       transparent 110deg,
       rgba(255, 224, 130, 0.08) 180deg,
       transparent 250deg
@@ -506,10 +484,10 @@
 .qc-login__promo-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.14;
+  opacity: 0.12;
   background-image:
-    linear-gradient(rgba(255, 213, 79, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 213, 79, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(var(--c-primary-rgb), 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--c-primary-rgb), 0.14) 1px, transparent 1px);
   background-size: 28px 28px;
   mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 20%, transparent 75%);
 }
@@ -521,9 +499,9 @@
   z-index: 2;
   background: linear-gradient(
     to bottom,
-    rgba(12, 10, 4, 0.72) 0%,
-    rgba(8, 7, 3, 0.82) 48%,
-    rgba(5, 4, 2, 0.92) 100%
+    rgba(18, 37, 64, 0.55) 0%,
+    rgba(15, 30, 52, 0.72) 48%,
+    rgba(10, 20, 36, 0.88) 100%
   );
   pointer-events: none;
 }
@@ -579,20 +557,20 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(255, 213, 79, 0.22);
+  border: 1px solid rgba(var(--c-primary-rgb), 0.28);
   animation: qc-login-bot-orbit 4.8s ease-in-out infinite;
 }
 
 .qc-login__bot-orbits span:nth-child(2) {
   inset: 18px;
   animation-delay: 0.4s;
-  border-color: rgba(255, 213, 79, 0.16);
+  border-color: rgba(var(--c-primary-rgb), 0.2);
 }
 
 .qc-login__bot-orbits span:nth-child(3) {
   inset: 36px;
   animation-delay: 0.8s;
-  border-color: rgba(255, 213, 79, 0.1);
+  border-color: rgba(var(--c-primary-rgb), 0.14);
 }
 
 @keyframes qc-login-bot-orbit {
@@ -606,8 +584,8 @@
   width: 100%;
   border-radius: 22px;
   padding: 18px;
-  background: rgba(18, 16, 10, 0.78);
-  border: 1px solid rgba(255, 213, 79, 0.28);
+  background: rgba(18, 37, 64, 0.82);
+  border: 1px solid rgba(var(--c-primary-rgb), 0.32);
   box-shadow:
     0 22px 48px rgba(0, 0, 0, 0.38),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -653,7 +631,7 @@
   margin-top: 3px;
   font-style: normal;
   font-size: 12px;
-  color: rgba(255, 213, 79, 0.85);
+  color: rgba(var(--c-primary-rgb), 0.92);
 }
 
 .qc-login__bot-pulse {
@@ -698,8 +676,8 @@
 
 .qc-login__bot-msg--out {
   align-self: flex-end;
-  background: rgba(255, 213, 79, 0.18);
-  border: 1px solid rgba(255, 213, 79, 0.35);
+  background: rgba(var(--c-primary-rgb), 0.16);
+  border: 1px solid rgba(var(--c-primary-rgb), 0.38);
   color: #fff;
   border-bottom-right-radius: 4px;
   animation-delay: 0.55s;
@@ -718,7 +696,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 213, 79, 0.85);
+  background: rgba(var(--c-primary-rgb), 0.9);
   animation: qc-login-bot-dots 1.2s ease-in-out infinite;
 }
 
